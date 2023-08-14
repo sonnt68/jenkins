@@ -32,12 +32,12 @@ pipeline {
             steps {
                 echo 'Deploying and cleaning'
                 sh 'docker image pull mysql:8.0'
-                sh 'docker network create dev || echo "this network exists"'
+                sh 'docker network create mysql || echo "this network exists"'
                 sh 'docker container stop sonnt-mysql || echo "this container does not exist" '
                 sh 'echo y | docker container prune '
                 sh 'docker volume rm sonnt-mysql-data || echo "no volume"'
 
-                sh "docker run --name sonnt-mysql --rm --network dev -v sonnt-mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=Ngotheson1234 -e MYSQL_DATABASE=db_example  -d mysql:8.0 "
+                sh "docker run --name sonnt-mysql --rm --network mysql -v sonnt-mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=Ngotheson1234 -e MYSQL_DATABASE=db_example  -d mysql:8.0 "
                 sh 'sleep 20'
                 sh "docker exec -i sonnt-mysql mysql --user=root --password=Ngotheson1234 < script"
             }

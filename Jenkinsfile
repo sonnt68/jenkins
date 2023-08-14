@@ -37,9 +37,9 @@ pipeline {
                 sh 'echo y | docker container prune '
                 sh 'docker volume rm sonnt-mysql-data || echo "no volume"'
 
-                sh "docker run --name sonnt-mysql --rm --network dev -v sonnt-mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=Ngotheson1234 -e MYSQL_DATABASE=db_example  -d mysql:8.0 "
+                sh "docker run --name sonnt-mysql --rm --network dev -v sonnt-mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_LOGIN_PSW} -e MYSQL_DATABASE=db_example  -d mysql:8.0 "
                 sh 'sleep 20'
-                sh "docker exec -i sonnt-mysql mysql --user=root --password=Ngotheson1234 < script"
+                sh "docker exec -i sonnt-mysql mysql --user=root --password=${MYSQL_ROOT_LOGIN_PSW} < script"
             }
         }
 

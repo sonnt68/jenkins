@@ -32,7 +32,7 @@ pipeline {
             steps {
                 echo 'Deploying and cleaning'
                 sh 'docker image pull mysql:8.0'
-                sh 'docker network create mysql-dev || echo "this network exists"'
+                sh 'docker network create sonnt-dev || echo "this network exists"'
                 sh 'docker container stop sonnt-mysql || echo "this container does not exist" '
                 sh 'echo y | docker container prune '
                 sh 'docker volume rm sonnt-mysql-data || echo "no volume"'
@@ -48,7 +48,7 @@ pipeline {
                 echo 'Deploying and cleaning'
                 sh 'docker image pull ngotheson/springboot'
                 sh 'docker container stop ngotheson-springboot || echo "this container does not exist" '
-                sh 'docker network create spring-dev || echo "this network exists"'
+                sh 'docker network create sonnt-dev || echo "this network exists"'
                 sh 'echo y | docker container prune '
 
                 sh 'docker container run -d --rm --name ngotheson-springboot -p 8081:8080 --network spring-dev ngotheson/springboot'
